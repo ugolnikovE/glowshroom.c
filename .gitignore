@@ -1,0 +1,20 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Shared objects
+*.so
+*.so.*
+
+# Build folder
+build/
+
+# Service files
+.DS_store
+.cache
+
+# IDE files
+.vscode
+.zed

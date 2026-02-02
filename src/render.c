@@ -53,9 +53,9 @@ void buffer_render(buffer_t *buf)
 
                         putchar(cell.ch ? cell.ch : ' ');
                 }
+                printf(ANSI_RESET);
                 putchar('\n');
         }
-        printf(ANSI_RESET);
 }
 
 void buffer_destroy(buffer_t *buf)

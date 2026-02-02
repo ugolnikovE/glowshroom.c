@@ -13,7 +13,6 @@ typedef struct
         char ch;
         color_t fg;
         color_t bg;
-        int emissive;
 } cell_t;
 
 typedef struct

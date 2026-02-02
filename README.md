@@ -1,4 +1,4 @@
-# glowshroom
+# glowshroom.c
 
 A CLI tool that renders bioluminescent ASCII mushrooms to the terminal.
 

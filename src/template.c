@@ -20,16 +20,16 @@ static const char *panellus[] = {
 static const char *omphalotus_olearius[] = {
         "\\______/",
         " \\@@@@/ ",
-        "  |--|  ",
-        "  |  |  ",
+        "  |--|   ",
+        "  |  |   ",
         NULL
 };
 
 static const char *mycena_luxaeterna[] = {
-        "  o  ",
-        " /@\\ ",
-        "  :  ",
-        "  :  ",
+        "     o   ",
+        " o  /@\\  ",
+        "/@\\  :   ",
+        " :   :   ",
         NULL
 };
 
@@ -58,6 +58,13 @@ static const template_t templates[] = {
 };
 
 #define TEMPLATE_COUNT (sizeof(templates) / sizeof(templates[0]))
+
+void template_size(const template_t *tpl, int *w, int *h)
+{
+    *w = strlen(tpl->lines[0]);
+    *h = 0;
+    while (tpl->lines[*h]) (*h)++;
+}
 
 const template_t *template_get(const char *name)
 {

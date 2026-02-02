@@ -12,5 +12,6 @@ typedef struct
 } template_t;
 
 const template_t *template_get(const char *name);
+void template_size(const template_t *tpl, int *w, int *h);
 
 #endif

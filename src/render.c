@@ -23,6 +23,11 @@ color_t hex_to_rgb(char* hex)
         return (color_t){ r, g, b};
 }
 
+color_t color_dim(color_t c, float factor)
+{
+        return (color_t){c.r * factor, c.g * factor, c.b * factor};
+}
+
 buffer_t* buffer_create(int w, int h)
 {
         buffer_t* buf = malloc(sizeof(buffer_t));
@@ -42,8 +47,8 @@ buffer_t* buffer_create(int w, int h)
 
 void buffer_render(buffer_t *buf)
 {
-        for (size_t y = 0; y < buf->height; y++) {
-                for (size_t x = 0; x < buf->width; x++) {
+        for (size_t y = 0; y < (size_t)buf->height; y++) {
+                for (size_t x = 0; x < (size_t)buf->width; x++) {
                         cell_t cell = buf->cells[y * buf->width + x];
 
                         if (color_is_zero(cell.bg)) {

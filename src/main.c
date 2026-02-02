@@ -1,8 +1,27 @@
-#include <stdio.h>
+#include "render.h"
+#include "config.h"
+#include "template.h"
+#include <time.h>
+#include <stdlib.h>
+#include <string.h>
+#include "glowshroom.h"
 
-
-int main(void)
+int main(int argc, char *argv[])
 {
-        printf("Hello world!\n");
-        return 0;
+        srand(time(NULL));
+
+        config_t config = parse_args(argc, argv);
+
+        glowshroom_t gshroom = glowshroom_create(&config);
+
+        int width, heigth;
+        template_size(gshroom.tpl, &width, &heigth);
+
+        buffer_t *buf = buffer_create(width, heigth);
+
+        glowshroom_render(buf, &gshroom);
+	buffer_render(buf);
+	buffer_destroy(buf);
+
+	return 0;
 }

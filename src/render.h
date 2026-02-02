@@ -25,5 +25,7 @@ typedef struct
 buffer_t* buffer_create(int w, int h);
 void buffer_render(buffer_t* buf);
 void buffer_destroy(buffer_t* buf);
+int color_is_zero(color_t c);
+color_t hex_to_rgb(char *hex);
 
 #endif

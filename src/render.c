@@ -11,9 +11,16 @@
 #define ANSI_FG_RGB     "\e[38;2;%d;%d;%dm"
 #define ANSI_BG_RGB     "\e[48;2;%d;%d;%dm"
 
-static int color_is_zero(color_t c)
+int color_is_zero(color_t c)
 {
         return c.r == 0 && c.g == 0 && c.b == 0;
+}
+
+color_t hex_to_rgb(char* hex)
+{
+        int r, g, b;
+        sscanf(hex, "#%02x%02x%02x", &r, &g, &b);
+        return (color_t){ r, g, b};
 }
 
 buffer_t* buffer_create(int w, int h)

@@ -7,6 +7,10 @@ SRC = $(wildcard src/*.c)
 OBJ = $(SRC:src/%.c=$(BUILD)/%.o)
 BIN = $(BUILD)/glowshroom
 
+PREFIX ?= /usr/local
+BINDIR = $(PREFIX)/bin
+
+
 all: $(BIN)
 
 $(BIN): $(OBJ)
@@ -21,4 +25,11 @@ $(BUILD):
 clean:
 	rm -rf $(BUILD)
 
-.PHONY: all clean
+install: $(BIN)
+	install -d $(BINDIR)
+	install -m 755 $(BIN) $(BINDIR)/glowshroom
+
+uninstall:
+	rm -f $(BINDIR)/glowshroom
+
+.PHONY: all clean install uninstall

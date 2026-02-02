@@ -4,19 +4,19 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define ANSI_RESET      "\e[0m"
-#define ANSI_FG_DEFAULT "\e[39m"
-#define ANSI_BG_DEFAULT "\e[49m"
+#define ANSI_RESET      "\033[0m"
+#define ANSI_FG_DEFAULT "\033[39m"
+#define ANSI_BG_DEFAULT "\033[49m"
 
-#define ANSI_FG_RGB     "\e[38;2;%d;%d;%dm"
-#define ANSI_BG_RGB     "\e[48;2;%d;%d;%dm"
+#define ANSI_FG_RGB     "\033[38;2;%d;%d;%dm"
+#define ANSI_BG_RGB     "\033[48;2;%d;%d;%dm"
 
 int color_is_zero(color_t c)
 {
         return c.r == 0 && c.g == 0 && c.b == 0;
 }
 
-color_t hex_to_rgb(char* hex)
+color_t hex_to_rgb(const char* hex)
 {
         int r, g, b;
         sscanf(hex, "#%02x%02x%02x", &r, &g, &b);
@@ -31,17 +31,22 @@ color_t color_dim(color_t c, float factor)
 buffer_t* buffer_create(int w, int h)
 {
         buffer_t* buf = malloc(sizeof(buffer_t));
-        if (buf) {
-                buf->width = w;
-                buf->height = h;
-                buf->cells = malloc(w * h * sizeof(cell_t));
-                if (!buf->cells) {
-                        buffer_destroy(buf);
-                        fprintf(stderr, "Failed to allocate buffer");
-                        exit(EXIT_FAILURE);
-                }
-                memset(buf->cells, 0, w * h * sizeof(cell_t));
+        if (!buf) {
+                fprintf(stderr, "Failed to allocate buffer\n");
+                exit(EXIT_FAILURE);
         }
+
+        buf->cells = malloc(w * h * sizeof(cell_t));
+        if (!buf->cells) {
+                fprintf(stderr, "Failed to allocate cells\n");
+                buffer_destroy(buf);
+                exit(EXIT_FAILURE);
+        }
+
+        buf->width = w;
+        buf->height = h;
+        memset(buf->cells, 0, w * h * sizeof(cell_t));
+
         return buf;
 }
 

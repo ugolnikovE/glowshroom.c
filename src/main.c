@@ -14,10 +14,10 @@ int main(int argc, char *argv[])
 
         glowshroom_t gshroom = glowshroom_create(&config);
 
-        int width, heigth;
-        template_size(gshroom.tpl, &width, &heigth);
+        int width, height;
+        template_size(gshroom.tpl, &width, &height);
 
-        buffer_t *buf = buffer_create(width, heigth);
+        buffer_t *buf = buffer_create(width, height);
 
         glowshroom_render(buf, &gshroom);
 	buffer_render(buf);

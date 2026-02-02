@@ -20,8 +20,8 @@ static const char *panellus[] = {
 static const char *omphalotus_olearius[] = {
         "\\______/",
         " \\@@@@/ ",
-        "  |--|   ",
-        "  |  |   ",
+        "  |--|  ",
+        "  |  |  ",
         NULL
 };
 
@@ -75,5 +75,5 @@ const template_t *template_get(const char *name)
                         }
                 }
         }
-        return &templates[0 + rand() % (TEMPLATE_COUNT)];
+        return &templates[rand() % (TEMPLATE_COUNT)];
 }

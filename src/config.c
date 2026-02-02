@@ -1,23 +1,33 @@
 #include "config.h"
 #include "render.h"
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
 static void print_help(void)
 {
-	fprintf(stdout, "glowshroom - Bioluminescent mushrooms in your terminal\n\n");
+	fprintf(stdout, "\nglowshroom - Bioluminescent mushrooms in your terminal\n\n");
 	fprintf(stdout, "USAGE:\n");
 	fprintf(stdout, "  glowshroom [OPTIONS]\n\n");
 	fprintf(stdout, "OPTIONS:\n");
 	fprintf(stdout, "  -h, --help     Show this help\n");
-	fprintf(stdout, "  -c, --color    Set mushroom color (hex, e.g. #ff00ff)\n");
+	fprintf(stdout, "  -c, --color    Set mushroom color (hex, e.g. #ff00ff)\n\n");
 }
 
 static void print_invalid(const char *arg)
 {
 	fprintf(stderr, "Unknown argument: %s\n", arg);
 	fprintf(stderr, "Try 'glowshroom --help' for more information.\n");
+}
+
+static int is_valid_hex(const char *s)
+{
+        if (!s || s[0] != '#' || strlen(s) != 7) return 0;
+        for (int i = 1; i < 7; i++) {
+                if (!isxdigit(s[i])) return 0;
+        }
+        return 1;
 }
 
 config_t parse_args(int argc, char *argv[])
@@ -30,6 +40,10 @@ config_t parse_args(int argc, char *argv[])
                                 print_help();
                                 exit(EXIT_SUCCESS);
                         } else if ((strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--color") == 0) && i + 1 < (size_t)argc) {
+                                if (!is_valid_hex(argv[i+1])) {
+                                        fprintf(stderr, "Invalid color: %s\n", argv[i+1]);
+                                        exit(EXIT_FAILURE);
+                                }
                                 config.color = hex_to_rgb(argv[i+1]);
                                 i++;
                         } else {

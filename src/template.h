@@ -3,15 +3,19 @@
 
 #include "render.h"
 
+/* ASCII art template for a mushroom species */
 typedef struct
 {
-        const char *name;
-        const char **lines;
-        const char *glow_chars;
-        color_t color;
+        const char *name;       /* Species identifier */
+        const char **lines;     /* ASCII art lines (NULL-terminated) */
+        const char *glow_chars; /* Characters that emit glow */
+        color_t color;          /* Default glow color */
 } template_t;
 
+/* Look up template by name. Returns NULL if not found. */
 const template_t *template_get(const char *name);
+
+/* Get dimensions of template's ASCII art */
 void template_size(const template_t *tpl, int *w, int *h);
 
 #endif

@@ -31,8 +31,10 @@ glowshroom [options]
 
 Options:
 - `-h, --help` - Show help
-- `-c, --color <hex>` - Glow color in hex format (e.g., `#00ff88`)
+- `-c, --color <hex>` - Glow color in hex format (e.g., `00ff88`)
 - `-s, --species <name>` - Mushroom species to render
+
+> **Note:** `#` is optional. Using it in shell requires quoting (`'#00ff88'`) or escaping (`\#00ff88`).
 
 Species:
 `mycena_chlorophos`, `panellus`, `omphalotus_olearius`, `mycena_luxaeterna`, `armillaria_mellea`, `mycena_silvaelucens`

@@ -19,7 +19,8 @@ int color_is_zero(color_t c)
 color_t hex_to_rgb(const char* hex)
 {
         int r, g, b;
-        sscanf(hex, "#%02x%02x%02x", &r, &g, &b);
+        if (hex[0] == '#') hex++;
+        sscanf(hex, "%02x%02x%02x", &r, &g, &b);
         return (color_t){ r, g, b};
 }
 

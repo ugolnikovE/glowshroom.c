@@ -19,7 +19,7 @@ static void print_help(void)
 	fprintf(stdout, "  glowshroom [OPTIONS]\n\n");
 	fprintf(stdout, "OPTIONS:\n");
 	fprintf(stdout, "  -h, --help     Show this help\n");
-	fprintf(stdout, "  -c, --color    Set mushroom color (hex, e.g. #ff00ff)\n");
+	fprintf(stdout, "  -c, --color    Set mushroom color (hex, e.g. ff00ff)\n");
 	fprintf(stdout, "  -s, --species  Set mushroom species\n\n");
 	fprintf(stdout, "SPECIES:\n");
 	print_species_list(stdout);
@@ -34,8 +34,10 @@ static void print_invalid(const char *arg)
 
 static int is_valid_hex(const char *s)
 {
-        if (!s || s[0] != '#' || strlen(s) != 7) return 0;
-        for (int i = 1; i < 7; i++) {
+        if (!s) return 0;
+        if (s[0] == '#') s++;
+        if (strlen(s) != 6) return 0;
+        for (int i = 0; i < 6; i++) {
                 if (!isxdigit(s[i])) return 0;
         }
         return 1;

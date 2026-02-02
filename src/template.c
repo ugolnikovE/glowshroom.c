@@ -75,5 +75,16 @@ const template_t *template_get(const char *name)
                         }
                 }
         }
-        return &templates[rand() % (TEMPLATE_COUNT)];
+        return &templates[rand() % TEMPLATE_COUNT];
+}
+
+int template_exists(const char *name)
+{
+        if (!name) return 0;
+        for (size_t i = 0; i < TEMPLATE_COUNT; i++) {
+                if (strcmp(templates[i].name, name) == 0) {
+                        return 1;
+                }
+        }
+        return 0;
 }

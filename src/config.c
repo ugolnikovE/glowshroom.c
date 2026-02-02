@@ -1,9 +1,16 @@
 #include "config.h"
 #include "render.h"
+#include "template.h"
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+
+static void print_species_list(FILE *f)
+{
+	fprintf(f, "  mycena_chlorophos, panellus, omphalotus_olearius,\n");
+	fprintf(f, "  mycena_luxaeterna, armillaria_mellea, mycena_silvaelucens\n");
+}
 
 static void print_help(void)
 {
@@ -12,7 +19,11 @@ static void print_help(void)
 	fprintf(stdout, "  glowshroom [OPTIONS]\n\n");
 	fprintf(stdout, "OPTIONS:\n");
 	fprintf(stdout, "  -h, --help     Show this help\n");
-	fprintf(stdout, "  -c, --color    Set mushroom color (hex, e.g. #ff00ff)\n\n");
+	fprintf(stdout, "  -c, --color    Set mushroom color (hex, e.g. #ff00ff)\n");
+	fprintf(stdout, "  -s, --species  Set mushroom species\n\n");
+	fprintf(stdout, "SPECIES:\n");
+	print_species_list(stdout);
+	fprintf(stdout, "\n");
 }
 
 static void print_invalid(const char *arg)
@@ -45,6 +56,15 @@ config_t parse_args(int argc, char *argv[])
                                         exit(EXIT_FAILURE);
                                 }
                                 config.color = hex_to_rgb(argv[i+1]);
+                                i++;
+                        } else if ((strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--species") == 0) && i + 1 < (size_t)argc) {
+                                if (!template_exists(argv[i+1])) {
+                                        fprintf(stderr, "Unknown species: %s\n", argv[i+1]);
+                                        fprintf(stderr, "Available:\n");
+                                        print_species_list(stderr);
+                                        exit(EXIT_FAILURE);
+                                }
+                                config.species = argv[i+1];
                                 i++;
                         } else {
                                 print_invalid(argv[i]);

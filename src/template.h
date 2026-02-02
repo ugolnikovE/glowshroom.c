@@ -18,4 +18,7 @@ const template_t *template_get(const char *name);
 /* Get dimensions of template's ASCII art */
 void template_size(const template_t *tpl, int *w, int *h);
 
+/* Returns 1 if species name exists, 0 otherwise */
+int template_exists(const char *name);
+
 #endif

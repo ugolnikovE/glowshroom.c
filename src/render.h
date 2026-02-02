@@ -24,7 +24,7 @@ typedef struct
         int width, height;
 } buffer_t;
 
-/* Allocate a new buffer. Abort programm while failure */
+/* Allocate a new buffer. Exits on failure */
 buffer_t* buffer_create(int w, int h);
 
 /* Print buffer contents to stdout using ANSI escape codes */
